@@ -22,20 +22,23 @@ class Scraper
     profile_page = Nokogiri::HTML(open(profile_url))
     social_container = profile_page.css(".social-icon-container a")
     profile = {}
-    if social_container.size == 1
-      profile[:twitter] = social_container.attribute("href").value
-    elsif social_container.size == 2
-      profile[:twitter] = social_container[0].attribute("href").value
-      profile[:linkedin] = social_container[1].attribute("href").value
-    elsif social_container.size == 3
-      profile[:twitter] = social_container[0].attribute("href").value
-      profile[:linkedin] = social_container[1].attribute("href").value
-      profile[:github] = social_container[2].attribute("href").value
-    elsif social_container.size == 4
-      profile[:twitter] = social_container[0].attribute("href").value
-      profile[:linkedin] = social_container[1].attribute("href").value
-      profile[:github] = social_container[2].attribute("href").value
-      profile[:blog] = social_container[3].attribute("href").value
+    social_container.each do |social|
+      if social.attribute("href").value.include?("twitter.com")
+        profile[:twitter] = social.attribute("href").value
+      elsif social.attribute("href").value.include?("github.com")
+        profile[:github] = social.attribute("href").value
+      elsif social.attribute("href").value.include?("linkedin.com")
+        profile[:linkedin] = social.attribute("href").value
+      else
+        profile[:blog] = social .attribute("href").value
+      end
+        
+
+      
+      # profile[:twitter] = social_container[0].attribute("href").value
+      # profile[:linkedin] = social_container[1].attribute("href").value
+      # profile[:github] = social_container[2].attribute("href").value
+      # profile[:blog] = social_container[3].attribute("href").value
     end
     profile[:profile_quote] = profile_page.css(".profile-quote").text
     profile[:bio] = profile_page.css(".bio-content.content-holder p").text
