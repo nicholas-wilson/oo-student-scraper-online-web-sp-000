@@ -25,6 +25,7 @@ class Student
       elsif key == :profile_url
         @profile_url = value
       end
+    end
     @@all << self
   end
 
