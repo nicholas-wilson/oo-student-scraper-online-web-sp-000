@@ -32,22 +32,9 @@ class Scraper
       else
         profile[:blog] = social .attribute("href").value
       end
-      # profile[:twitter] = social_container[0].attribute("href").value
-      # profile[:linkedin] = social_container[1].attribute("href").value
-      # profile[:github] = social_container[2].attribute("href").value
-      # profile[:blog] = social_container[3].attribute("href").value
     end
     profile[:profile_quote] = profile_page.css(".profile-quote").text
     profile[:bio] = profile_page.css(".bio-content.content-holder p").text
     profile
-    # {
-    #   :twitter => social_container[0].attribute("href").value,
-    #   :linkedin => social_container[1].attribute("href").value,
-    #   :github => social_container[2].attribute("href").value,
-    #   :blog => social_container[3].attribute("href").value,
-    #   :profile_quote => profile_page.css(".profile-quote").text,
-    #   :bio => profile_page.css(".bio-content.content-holder p").text
-    # }
   end
-
 end
